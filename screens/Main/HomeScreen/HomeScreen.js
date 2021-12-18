@@ -19,18 +19,17 @@ function HomeScreen(props) {
 	const [user, setUser] = useState(props.currentUser);
 	const [household, setHouse] = useState(props.currentHousehold);
 	const {currentMembers} = props;
-
-	useEffect(() => {
-		console.log(user);
-		props.fetchUser();
-			// const myTimeout = setTimeout(setUser(props.currentUser),200)
-		setUser(props.currentUser);
-		props.fetchHouse();
-		setHouse(props.currentHouse)
-		console.log(props.currentUser);
-		console.log(props.currentHouse);
-		console.log("loading");
-	}, [props.id, props.currentHouse]);
+	const sortLeaderboard = (a, b)=>{
+		if(a.points> b.points){
+			return -1;
+		}
+		if(a.points< b.points){
+			return 1;
+		}
+		return 0;
+	}
+	const leaderData = currentMembers.sort(sortLeaderboard);
+	console.log(leaderData);
 	
 	if(user == null){
 		return(
@@ -42,12 +41,12 @@ function HomeScreen(props) {
 			<Text style = {styles.headerStyle} >Welcome</Text>
 			<View style = {styles.container}> 
 				<Text style = {styles.textStyle}>{user.fullName}</Text>
-				<Text style = {styles.textStyle}> House ID: {household}</Text>
+				<Text style = {styles.textStyle}> House ID: {user.household}</Text>
 			</View>
             
 			<Text style = {styles.headerStyle} >Leaderboard</Text>
 			<FlatList style={styles.containerStyle}
-			data={currentMembers}
+			data={leaderData}
 			renderItem={({item}) =>(
 				<>
 				<View style={styles.horizLine}/>
@@ -67,9 +66,7 @@ function HomeScreen(props) {
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser,
 	currentHouse: store.houseState.currentHouse,
-	loading:store.userState.loading,
 	currentMembers: store.membersState.currentMembers,
-	id: store.userState.id,
 })
 const mapDispatchProps = (dispatch) => bindActionCreators({ fetchUser, fetchHouse }, dispatch);
 

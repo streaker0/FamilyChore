@@ -17,6 +17,14 @@ const logOutFunction = () => {
 		alert("You have been logged out");
 	})
 }
+// const resetFunction = (user) => {
+// 	firebase
+// 	.firestore()
+// 	.collection('household')
+// 	.doc(user.household)
+// 	.collection('members')
+
+// }
 function SettingsScreen(props) {
 	const navigation = useNavigation();
 	const {currentUser} = props;
@@ -33,7 +41,7 @@ function SettingsScreen(props) {
 				</TouchableOpacity>
 				<TouchableOpacity> 
 					<View style={styles.viewStyle}>
-						<Text style = {styles.textStyle}>Manage members</Text>
+						<Text style = {styles.textStyle}>Reset Points</Text>
 					</View>
 					<View style={styles.horizLine}/>
 				</TouchableOpacity>

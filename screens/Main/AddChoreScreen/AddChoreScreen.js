@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import { Text, View, TouchableOpacity, TextInput, ScrollView } from 'react-native'
+import React from 'react'
+import { Text, View, TouchableOpacity} from 'react-native'
 import { FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { connect } from 'react-redux'
@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import styles from './styles';
 
 function AddChoreScreen(props) {
-	console.log(props.currentMembers);
 	const {currentMembers} = props;
 	return(
 		<SafeAreaView>
@@ -32,6 +31,4 @@ function AddChoreScreen(props) {
 const mapStateToProps = (store) => ({
 	currentMembers: store.membersState.currentMembers
 })
-//const mapDispatchProps = (dispatch) => bindActionCreators({ fetchUser, fetchHouse }, dispatch);
-
 export default connect(mapStateToProps, null)(AddChoreScreen);
